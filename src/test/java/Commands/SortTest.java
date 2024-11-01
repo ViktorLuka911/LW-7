@@ -1,6 +1,5 @@
 package Commands;
 
-import Loggers.LoggerInfo;
 import SystemVouchers.SystemVouchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,16 +12,13 @@ class SortTest {
 
     private SortCommand command;
     private SystemVouchers mockSystemVouchers;
-    private LoggerInfo mocklogger;
 
     @BeforeEach
     void setUp() {
         mockSystemVouchers = Mockito.mock(SystemVouchers.class);
-        mocklogger = Mockito.mock(LoggerInfo.class);
 
         command = new SortCommand("", "");
         command.setVouchers(mockSystemVouchers);
-        command.setLoggerInfo(mocklogger);
     }
 
     @Test
@@ -33,7 +29,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByDays(true);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за кількістю днів у порядку зростання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -44,7 +39,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByDays(false);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за кількістю днів у порядку спадання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -55,7 +49,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByPrice(true);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за ціною путівки у порядку зростання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -66,7 +59,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByPrice(false);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за ціною путівки у порядку спадання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -77,7 +69,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByDate(true);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за датою путівки у порядку зростання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -88,7 +79,6 @@ class SortTest {
         command.execute();
 
         verify(mockSystemVouchers).sortVouchersByDate(false);
-        verify(mocklogger).logInfo("Користувач вибрав сортування за датою путівки у порядку спадання.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 

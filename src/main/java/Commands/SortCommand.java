@@ -20,17 +20,14 @@ public class SortCommand extends Command {
         switch (getTitle()) {
             case "Сортувати за кількістю днів":
                 systemVouchers.sortVouchersByDays(ascending);
-                logger.logInfo(String.format("Користувач вибрав сортування за кількістю днів у порядку %s.", ascending ? "зростання" : "спадання"));
                 break;
 
             case "Сортувати за ціною":
                 systemVouchers.sortVouchersByPrice(ascending);
-                logger.logInfo(String.format("Користувач вибрав сортування за ціною путівки у порядку %s.", ascending ? "зростання" : "спадання"));
                 break;
 
             case "Сортувати за датою":
                 systemVouchers.sortVouchersByDate(ascending);
-                logger.logInfo(String.format("Користувач вибрав сортування за датою путівки у порядку %s.", ascending ? "зростання" : "спадання"));
                 break;
         }
         systemVouchers.showVouchers(true);

@@ -1,14 +1,10 @@
 package Utilities;
 
-import Loggers.LoggerInfo;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 public class Utilities {
-
-    private static final LoggerInfo logger = LoggerInfo.getInstance();
-
     public static int getValidatedInput(int min, int max) {
         Scanner scanner = new Scanner(System.in);
         int input;
@@ -32,14 +28,13 @@ public class Utilities {
                 LocalDate parsedDate = LocalDate.parse(input);
 
                 if (parsedDate.isBefore(LocalDate.now())) {
-                    System.out.print("\n\tДата не може бути у минулому. Спробуйте знову (формат: YYYY-MM-DD):");
+                    System.out.print("\n\tДата не може бути у минулому. Спробуйте знову (формат: YYYY-MM-DD): ");
                     continue;
                 }
 
                 return input;
             } catch (DateTimeParseException e) {
-                System.out.print("\n\tНевірний формат дати. Спробуйте знову (формат: YYYY-MM-DD):");
-                logger.logError("Виникла помилка під час встановлення дати путівки.\n", String.format("Користувач ввів: %s.", input));
+                System.out.print("\n\tНевірний формат дати. Спробуйте знову (формат: YYYY-MM-DD): ");
             }
         }
     }

@@ -1,6 +1,5 @@
 package Commands;
 
-import Loggers.LoggerInfo;
 import SystemVouchers.SystemVouchers;
 import VoucherParameters.*;
 import org.junit.jupiter.api.AfterEach;
@@ -16,18 +15,15 @@ class ShowListTest {
 
     private ShowListCommand command;
     private SystemVouchers mockSystemVouchers;
-    private LoggerInfo mocklogger;
     private MockedStatic<SelectParameters> mockedParameters;
 
     @BeforeEach
     void setUp() {
         command = new ShowListCommand("");
         mockSystemVouchers = Mockito.mock(SystemVouchers.class);
-        mocklogger = Mockito.mock(LoggerInfo.class);
         mockedParameters = Mockito.mockStatic(SelectParameters.class);
 
         command.setVouchers(mockSystemVouchers);
-        command.setLoggerInfo(mocklogger);
     }
 
     @AfterEach
@@ -43,7 +39,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).resetVouchers();
-        verify(mocklogger).logInfo("Користувач вибрав перегляд всього списку.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -56,7 +51,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).setVouchersByType(mockType);
-        verify(mocklogger).logInfo("Користувач вибрав фільтрацію списку за типом путівки.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -69,7 +63,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).setVouchersByCountry(mockCountry);
-        verify(mocklogger).logInfo("Користувач вибрав фільтрацію списку за країною.");
         verify(mockSystemVouchers).showVouchers(true);
 
     }
@@ -83,7 +76,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).setVouchersByTransport(mockTransport);
-        verify(mocklogger).logInfo("Користувач вибрав фільтрацію списку за типом транспорту.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -96,7 +88,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).setVouchersByBudget(mockBudget);
-        verify(mocklogger).logInfo("Користувач вибрав фільтрацію списку за типом бюджету.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 
@@ -109,7 +100,6 @@ class ShowListTest {
         command.execute();
 
         verify(mockSystemVouchers).setVouchersByNutrition(mockNutrition);
-        verify(mocklogger).logInfo("Користувач вибрав фільтрацію списку за типом харчування.");
         verify(mockSystemVouchers).showVouchers(true);
     }
 }

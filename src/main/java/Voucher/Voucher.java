@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class Voucher {
     private Country country;
     private int price;
-
     private VoucherType type;
     private VoucherTransport transport;
     private Nutrition nutrition;
@@ -170,9 +169,6 @@ public class Voucher {
         LocalDate currentDate = LocalDate.now();
         LocalDate maxDate = currentDate.plusYears(1); // Maximum date is one year from now
 
-        if (tripDate.isBefore(currentDate) || tripDate.isAfter(maxDate)) {
-            throw new IllegalArgumentException("Дата путівки повинна бути в межах одного року від сьогодні.");
-        }
         this.tripDate = tripDate;
     }
 

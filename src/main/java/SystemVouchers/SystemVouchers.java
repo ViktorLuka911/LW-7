@@ -12,14 +12,12 @@ import java.util.Scanner;
 public class SystemVouchers {
     private static SystemVouchers instance;
     private ListVouchers vouchers;
-    private final LoggerInfo logger;
     private final DataFileLogger dataFileLogger;
 
     private SystemVouchers() {
         vouchers = new ListVouchers();
-        this.logger = LoggerInfo.getInstance();
         dataFileLogger = new DataFileLogger();
-        dataFileLogger.init("logs/Datalog.txt", true);
+        dataFileLogger.init("Data/Data.txt", true);
         this.resetVouchers();
     }
 
@@ -55,11 +53,10 @@ public class SystemVouchers {
             }
 
             System.out.printf("\t%s%n", border);
-
-            if (pressEnter) {
-                System.out.print("\n\tНатисніть Enter, щоб продовжити...");
-                scanner.nextLine();
-            }
+        }
+        if (pressEnter) {
+            System.out.print("\n\tНатисніть Enter, щоб продовжити...");
+            scanner.nextLine();
         }
     }
 
@@ -86,18 +83,18 @@ public class SystemVouchers {
 
             ListVouchers buffer = new ListVouchers();
 
-            try (BufferedReader br = new BufferedReader(new FileReader("logs/Datalog.txt"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("Data/Data.txt"))) {
                 String line;
                 while ((line = br.readLine()) != null) {
                     buffer.add(Voucher.fromString(line));
                 }
             } catch (IOException e) {
-                logger.logError("Помилка при читанні файлу бази даних.", "");
+                System.out.println("Помилка при читанні файлу бази даних.");
             }
 
             buffer.getList().remove(selectedVoucher);
 
-            dataFileLogger.init("logs/Datalog.txt", false);
+            dataFileLogger.init("Data/Data.txt", false);
 
             for (Voucher voucher : buffer.getList()) {
                 dataFileLogger.log(voucher.toString());
@@ -114,14 +111,13 @@ public class SystemVouchers {
     public void resetVouchers() {
         vouchers.clear();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("logs/Datalog.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("Data/Data.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 vouchers.add(Voucher.fromString(line));
             }
         } catch (IOException e) {
-            System.out.println("\n\tСталася помилка при перезавантаженні ваучерів.\n");
-            logger.logError("Помилка при читанні файлу бази даних.", "");
+            System.out.println("\n\tСталася помилка при перезавантаженні списку.\n");
         }
     }
 

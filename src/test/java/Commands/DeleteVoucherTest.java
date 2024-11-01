@@ -1,6 +1,5 @@
 package Commands;
 
-import Loggers.LoggerInfo;
 import SystemVouchers.SystemVouchers;
 import Voucher.Voucher;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,18 +17,15 @@ class DeleteVoucherTest {
 
     private DeleteVoucherCommand command;
     private SystemVouchers mockSystemVouchers;
-    private LoggerInfo mocklogger;
     private Scanner mockScanner;
 
     @BeforeEach
     void setUp() {
         mockSystemVouchers = Mockito.mock(SystemVouchers.class);
-        mocklogger = Mockito.mock(LoggerInfo.class);
         mockScanner = Mockito.mock(Scanner.class);
 
         command = new DeleteVoucherCommand("Видалити путівку");
         command.setVouchers(mockSystemVouchers);
-        command.setLoggerInfo(mocklogger);
     }
 
     @Test
@@ -43,7 +39,6 @@ class DeleteVoucherTest {
         command.execute();
 
         verify(mockSystemVouchers, never()).showVouchers(false);
-        verify(mocklogger, never()).logInfo(anyString());
     }
 
     @Test
